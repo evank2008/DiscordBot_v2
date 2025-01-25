@@ -40,8 +40,8 @@ public class DiscordBot {
 
 		//Print the URL to invite the bot
 		if (printInvite) {
-			System.out.println("To authorize your bot, send your teacher this link: " + api.getInviteUrl()
-					+"\n\tThis message can be disabled in org.jointheleague.Launcher.java");
+			//System.out.println("To authorize your bot, send your teacher this link: " + api.getInviteUrl()
+			//		+"\n\tThis message can be disabled in org.jointheleague.Launcher.java");
 		}
 
 		//Send bot connected message in channel
@@ -56,11 +56,14 @@ public class DiscordBot {
 		api.addEventListener(helpListener);
 
 		//add features
+		/*
 		addFeature(new FeatureOne(channelName));
 		addFeature(new CurrentTime(channelName));
 		addFeature(new HighLowGame(channelName));
 		addFeature(new NewsApi(channelName));
 		addFeature(new CatFactsApi(channelName));
+		*/
+		
 	}
 
 	private void addFeature(Feature feature){

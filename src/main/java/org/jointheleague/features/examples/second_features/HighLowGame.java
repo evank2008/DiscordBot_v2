@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class HighLowGame extends Feature {
 
-    public final String COMMAND = "!highLow";
+    public final String COMMAND = "!highlow";
     private final Random random = new Random();
     int numberToGuess;
 
@@ -22,7 +22,7 @@ public class HighLowGame extends Feature {
         String messageContent = event.getMessageContent();
 
         //start the game with the command
-        if (messageContent.equals(COMMAND)) {
+        if (messageContent.toLowerCase().equals(COMMAND)) {
             numberToGuess = random.nextInt(100) + 1;
             event.sendResponse("I have picked a number between 1 and 100. Guess by using e.g. !highLow 5");
         }

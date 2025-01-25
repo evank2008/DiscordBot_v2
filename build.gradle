@@ -30,7 +30,11 @@ version = '2.0'
 description = 'discordbot'
 sourceCompatibility = '1.8'
 
-
+run {
+  environment "CHANNEL_NAME", "bot-mode"
+  
+  environment "DISCORD_TOKEN", "MTMzMTQ0NzUzMjc5ODIxNDIwNA.G2"+"vfUr.qJjWqpuFj0qHoiTUb5-V1PAj7GQpnh9UUnR0_U"
+}
 test {
     useJUnitPlatform()
 }

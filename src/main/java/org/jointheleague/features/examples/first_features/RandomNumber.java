@@ -17,6 +17,7 @@ public class RandomNumber extends Feature {
 
     @Override
     public void handle(ReceivedMessage event) {
+
         String messageContent = event.getMessageContent();
         if (messageContent.startsWith(COMMAND)) {
             Random r = new Random();
