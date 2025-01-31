@@ -17,8 +17,10 @@ public class Kys extends Feature {
 
     @Override
     public void handle(ReceivedMessage event) {
-        String messageContent = event.getMessageContent();
-        if (messageContent.equalsIgnoreCase(COMMAND)||messageContent.equalsIgnoreCase("onion kill yourself")) {
+        String messageContent = event.getMessageContent().toLowerCase();
+        
+        if (messageContent.contains("onion")) {
+        	if(messageContent.contains("kys")||messageContent.contains("kill yourself"))
             //respond to message here
             event.sendResponse("killing self...");
             System.exit(0);

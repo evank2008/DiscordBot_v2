@@ -19,6 +19,9 @@ public class ReceivedMessage {
     public void sendResponse(String message) {
         this.event.getChannel().sendMessage(message).submit().join();
     }
+    public MessageReceivedEvent getEvent() {
+        return this.event;
+    }
 
     public Message sendResponse(MessageEmbed embed) {
         return this.event.getChannel().sendMessageEmbeds(embed).submit().join();
