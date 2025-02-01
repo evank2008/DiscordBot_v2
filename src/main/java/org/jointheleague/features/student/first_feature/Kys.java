@@ -20,10 +20,11 @@ public class Kys extends Feature {
         String messageContent = event.getMessageContent().toLowerCase();
         
         if (messageContent.contains("onion")) {
-        	if(messageContent.contains("kys")||messageContent.contains("kill yourself"))
+        	if(messageContent.contains("kys")||messageContent.contains("kill yourself")) {
             //respond to message here
             event.sendResponse("killing self...");
             System.exit(0);
+        	}
         }
     }
 
