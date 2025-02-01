@@ -22,6 +22,7 @@ public class Kys extends Feature {
         if (messageContent.contains("onion")) {
         	if(messageContent.contains("kys")||messageContent.contains("kill yourself")) {
             //respond to message here
+        		//event.getEvent().getChannel().sendFiles(null).submit().join();
             event.sendResponse("killing self...");
             System.exit(0);
         	}
