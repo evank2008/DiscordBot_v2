@@ -36,10 +36,15 @@ public class ScheduleMatch extends Feature {
         	switch (scheduleProgress) {
         	case 0:
         		match = new Match();
-        		match.setDate(messageContent);
+        		if(!match.inputDate(messageContent).equals("1")) {
+        			event.sendResponse(match.inputDate(messageContent));
+        			scheduleInProgress=false;
+        			scheduleProgress=0;
+        		} else {
         		//date
         		event.sendResponse("Enter the list of people playing by listing each person's user ID, separated by spaces - IN PROGRESS");
         		scheduleProgress++;
+        		}
         		break;
         	case 1:
         		//add the player list something

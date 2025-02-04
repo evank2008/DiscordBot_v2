@@ -62,7 +62,6 @@ public class DiscordBot {
 		//addFeature(new FeatureOne(channelName));		
 		addFeature(new ScheduleMatch(channelName));
 		addFeature(new CurrentTime(channelName));
-		addFeature(new HighLowGame(channelName));
 		addFeature(new Kys(channelName));
 		
 		

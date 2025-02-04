@@ -4,12 +4,22 @@ import org.jointheleague.api_wrapper.ReceivedMessage;
 import org.jointheleague.features.abstract_classes.Feature;
 import org.jointheleague.features.help_embed.plain_old_java_objects.help_embed.HelpEmbed;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
+import net.dv8tion.jda.api.utils.TimeFormat;
+import net.dv8tion.jda.api.utils.Timestamp;
 public class Match{
 
 String matchTitle;
 String[] roster;
 String date;
+Calendar cal;
 
     public Match() {
         
@@ -23,11 +33,34 @@ String date;
     void setDate(String date) {
     	this.date=date;
     }
-    void inputDate(String dateInput) {
+    String inputDate(String dateInput) {
+    	try {
+    	//dateInput should be in the format: "m/d/yyyy h:m" in EST
+    	String[] splitDate = dateInput.split("/|\\ |\\:");
+    	if(splitDate.length!=5) {
+    		String s = "Full date not entered, or too much date entered We got: \n";
+    		for(String se:splitDate) {
+    			s+=se+"\n";
+    		}
+    		return s;
+    	}
+    	int[] dateInts = new int[5];
+    	for(int i=0; i<5;i++) {
+    		dateInts[i]=Integer.parseInt(splitDate[i]);
+    	}
     	//set the date to whatev
+    	 cal = new Calendar.Builder().build();
+    	TimeZone tz = TimeZone.getTimeZone("EST");
+    	cal.setTimeZone(tz);
+    	cal.set(dateInts[3], dateInts[0], dateInts[1], dateInts[3], dateInts[4]);
+    	return "1";
+    	} catch(Exception e) {
+    		return e.getMessage();
+    	}
     }
     String getDate() {
-    	return date;
+    	//todo: figure out how to make discord timestamp
+return "date";
     }
     void setRoster(String[] roster) {
     	this.roster=roster;
