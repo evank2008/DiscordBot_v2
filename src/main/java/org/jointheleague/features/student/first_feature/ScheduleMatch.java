@@ -5,6 +5,9 @@ import org.jointheleague.features.abstract_classes.Feature;
 import org.jointheleague.features.help_embed.plain_old_java_objects.help_embed.HelpEmbed;
 import org.jointheleague.features.student.first_feature.Match;
 
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.User;
+
 public class ScheduleMatch extends Feature {
 
     public final String COMMAND = "onion schedulematch";
@@ -22,6 +25,7 @@ public class ScheduleMatch extends Feature {
 
     @Override
     public void handle(ReceivedMessage event) {
+    	
         String messageContent = event.getMessageContent();
         
         if (messageContent.equalsIgnoreCase(COMMAND)&&!scheduleInProgress) {
@@ -50,9 +54,17 @@ public class ScheduleMatch extends Feature {
         	case 1:
         		//add the player list something
         		String[] idSplit = messageContent.split(" ");
-        		match.setRoster(idSplit);
+        		event.sendResponse("setRoster loading...");
+        		String set = match.setRoster(idSplit);
+        		//event.sendResponse("setRoster went through");
+        		if(!set.equals("1")) {
+        			event.sendResponse("Error: "+set);
+        			scheduleInProgress=false;
+        			scheduleProgress=0;
+        		} else {
         		event.sendResponse("Enter match title");
         		scheduleProgress++;
+        		}
         		break;
         	case 2:
         		match.setTitle(messageContent);
@@ -60,8 +72,10 @@ public class ScheduleMatch extends Feature {
         		event.sendResponse("Match scheduled.");
         		scheduleInProgress=false;
         		String se = "";
-        		for(String s: match.getRoster()) {
-        			se+=("<@!"+s+"> \n");
+        		for(User u: match.getRoster()) {
+        			//se+=("<@!"+u.getId()+"> \n");
+        			event.sendResponse("Adding name...");
+        			se+=(u.getName()+" \n");
         		}
         		event.sendResponse("Match data: \nDate: "+match.getDate()+"\nTitle: "+match.getTitle()+"\n Players: \n"+se);
         		break;

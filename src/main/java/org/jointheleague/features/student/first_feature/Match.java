@@ -12,17 +12,27 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.TimeFormat;
 import net.dv8tion.jda.api.utils.Timestamp;
+
 public class Match{
 
 String matchTitle;
-String[] roster;
+User[] roster;
 String date;
 Calendar cal;
+JDA jda;
 
     public Match() {
-        
+    	jda = JDABuilder.createDefault("MTMzMTQ0NzUzMjc5ODIxNDIwNA.G2"+"vfUr.qJjWqpuFj0qHoiTUb5-V1PAj7GQpnh9UUnR0_U",GatewayIntent.GUILD_MEMBERS)    			
+    			.setMemberCachePolicy(MemberCachePolicy.ALL)
+    			.build();
+    	
     }
     void setTitle(String title) {
     	this.matchTitle=title;
@@ -65,10 +75,24 @@ Calendar cal;
     	//todo: figure out how to make discord timestamp
 return "<t:"+cal.getTimeInMillis()/1000+">";
     }
-    void setRoster(String[] roster) {
-    	this.roster=roster;
+    String setRoster(String[] roster) {
+    	//string is of user ids
+    	
+    	 this.roster = new User[roster.length];
+    	for(int i = 0;i<roster.length;i++)  {
+    		try {
+    			this.roster[i]=jda.retrieveUserById(roster[i]).submit().get();
+    			
+    		//this.roster[i]=jda.getUserById(roster[i]);
+    		} catch(Exception e) {
+    			this.roster=null;
+    			return e.getMessage();
+    		}
+    	}
+    	return "1";
+    	
     }
-    String[] getRoster() {
+    User[] getRoster() {
     	return roster;
     }
 
