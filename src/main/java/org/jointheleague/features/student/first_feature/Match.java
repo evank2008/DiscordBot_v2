@@ -49,18 +49,21 @@ Calendar cal;
     		dateInts[i]=Integer.parseInt(splitDate[i]);
     	}
     	//set the date to whatev
-    	 cal = new Calendar.Builder().build();
-    	TimeZone tz = TimeZone.getTimeZone("EST");
-    	cal.setTimeZone(tz);
-    	cal.set(dateInts[3], dateInts[0], dateInts[1], dateInts[3], dateInts[4]);
+    	 cal = new Calendar.Builder()
+    			 .setTimeZone(TimeZone.getTimeZone("EST"))
+    			 .build();
+     	//cal.set(2025, 12, 31, 15, 30);
+
+     	cal.set(dateInts[2], dateInts[0]-1, dateInts[1], dateInts[3], dateInts[4]);
     	return "1";
     	} catch(Exception e) {
     		return e.getMessage();
     	}
     }
     String getDate() {
+    	
     	//todo: figure out how to make discord timestamp
-return "date";
+return "<t:"+cal.getTimeInMillis()/1000+">";
     }
     void setRoster(String[] roster) {
     	this.roster=roster;

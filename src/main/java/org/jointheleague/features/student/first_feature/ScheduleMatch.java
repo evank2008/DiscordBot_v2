@@ -30,14 +30,15 @@ public class ScheduleMatch extends Feature {
             //respond to message here
         	 userId = event.getEvent().getAuthor().getId();
         	 userName = event.getEvent().getAuthor().getName();
-            event.sendResponse("Alright "+userName+", let's schedule a match. Enter the date and time(dd/mm/yy hh:mm) in EST Military Format.");
+            event.sendResponse("Alright "+userName+", let's schedule a match. Enter the date and time(m/d/yyyy h:mm) in EST Military Format.");
         } else if(scheduleInProgress&&event.getEvent().getAuthor().getId().equals(userId)) {
         	//correct person
         	switch (scheduleProgress) {
         	case 0:
         		match = new Match();
-        		if(!match.inputDate(messageContent).equals("1")) {
-        			event.sendResponse(match.inputDate(messageContent));
+        		String inp = match.inputDate(messageContent);
+        		if(!inp.equals("1")) {
+        			event.sendResponse(inp);
         			scheduleInProgress=false;
         			scheduleProgress=0;
         		} else {
