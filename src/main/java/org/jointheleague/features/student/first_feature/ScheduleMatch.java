@@ -20,7 +20,7 @@ public class ScheduleMatch extends Feature {
         super(channelName);
 
         //Create a help embed to describe feature when !help command is sent
-        helpEmbed = new HelpEmbed(COMMAND, "Add a match to the schedule. Input date/time, players, and match title.");
+        helpEmbed = new HelpEmbed(COMMAND, "Add a match to the schedule. Input date/time, players, and match title. \n for quick input, use the following sytax: \n onion schedulematch; date time; players; matchTitle");
     }
 
     @Override
@@ -56,7 +56,6 @@ public class ScheduleMatch extends Feature {
         		String[] idSplit = messageContent.split(" ");
         		event.sendResponse("setRoster loading...");
         		String set = match.setRoster(idSplit);
-        		//event.sendResponse("setRoster went through");
         		if(!set.equals("1")) {
         			event.sendResponse("Error: "+set);
         			scheduleInProgress=false;
@@ -69,18 +68,25 @@ public class ScheduleMatch extends Feature {
         	case 2:
         		match.setTitle(messageContent);
         		//add it to the list/database whatever
+        		scheduleProgress=0;
+        		userId=null;
         		event.sendResponse("Match scheduled.");
-        		scheduleInProgress=false;
-        		String se = "";
-        		for(User u: match.getRoster()) {
-        			//se+=("<@!"+u.getId()+"> \n");
-        			event.sendResponse("Adding name...");
-        			se+=(u.getName()+" \n");
-        		}
-        		event.sendResponse("Match data: \nDate: "+match.getDate()+"\nTitle: "+match.getTitle()+"\n Players: \n"+se);
+        		event.sendResponse(match.getPrint());
         		break;
         	
         	}
+        }else if(event.getMessageContent().split("; ").length>=4&&event.getMessageContent().substring(0, 20).equals("onion schedulematch;")) {
+        	event.sendResponse("quick shedule detected.");
+        	String[] splitMessage = event.getMessageContent().split("; ");
+        	//example command: onion schedulematch; date; roster; matchName
+        	String[] idSplit = splitMessage[2].split(" ");
+        	if(match.inputDate(splitMessage[1]).equals("1")&&match.setRoster(idSplit).equals("1")) {
+        	event.sendResponse("should work");	
+        	}
+        	match.setTitle(splitMessage[3]);
+        	
+        	event.sendResponse("Match scheduled.");
+    		event.sendResponse(match.getPrint());
         }
         
     }

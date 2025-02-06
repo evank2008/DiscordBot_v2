@@ -71,9 +71,7 @@ JDA jda;
     	}
     }
     String getDate() {
-    	
-    	//todo: figure out how to make discord timestamp
-return "<t:"+cal.getTimeInMillis()/1000+">";
+    	return "<t:"+cal.getTimeInMillis()/1000+">";
     }
     String setRoster(String[] roster) {
     	//string is of user ids
@@ -94,6 +92,15 @@ return "<t:"+cal.getTimeInMillis()/1000+">";
     }
     User[] getRoster() {
     	return roster;
+    }
+    String getPrint() {
+    	String statement = "**"+matchTitle+"** \n \n**Date:** "+this.getDate()+" \n \n**Players:** \n";
+		String se = "";
+		for(User u: roster) {
+			se+=(u.getName()+" \n");
+		}
+		statement+=se;
+		return statement;
     }
 
 }
