@@ -3,6 +3,8 @@ package org.jointheleague.features.student.first_feature;
 import org.jointheleague.api_wrapper.ReceivedMessage;
 import org.jointheleague.features.abstract_classes.Feature;
 import org.jointheleague.features.help_embed.plain_old_java_objects.help_embed.HelpEmbed;
+
+import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -10,10 +12,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 import java.util.TimeZone;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
@@ -27,12 +32,15 @@ User[] roster;
 String date;
 Calendar cal;
 JDA jda;
+Random ran;
+MatchThinker finger;
 
-    public Match() {
+    public Match(MatchThinker thinker) {
     	jda = JDABuilder.createDefault("MTMzMTQ0NzUzMjc5ODIxNDIwNA.G2"+"vfUr.qJjWqpuFj0qHoiTUb5-V1PAj7GQpnh9UUnR0_U",GatewayIntent.GUILD_MEMBERS)    			
     			.setMemberCachePolicy(MemberCachePolicy.ALL)
     			.build();
-    	
+    	ran = new Random();
+    	finger = thinker;
     }
     void setTitle(String title) {
     	this.matchTitle=title;
@@ -103,4 +111,19 @@ JDA jda;
 		return statement;
     }
 
+    MessageEmbed getEmbed() {
+    	String statement = "**Date:** "+this.getDate()+" \n \n**Players:** \n";
+		String se = "";
+		for(User u: roster) {
+			se+=(u.getName()+" \n");
+		}
+		statement+=se;
+    	return new EmbedBuilder().setColor(new Color(ran.nextInt(256),ran.nextInt(256),ran.nextInt(256)))
+    	.setTitle(matchTitle)
+    	.setDescription(statement)
+    	.build();
+    }
+    void save() {
+    	finger.saveMatch(this);
+    }
 }
