@@ -3,12 +3,12 @@ package org.jointheleague.features.student.first_feature;
 import java.util.LinkedList;
 
 public class MatchThinker {
-static LinkedList<Match> Schedule;
+static LinkedList<Match> Schedule = new LinkedList<Match>();
 //todo: save to file
 public MatchThinker() {
 	
 }
-void saveMatch(Match match) {
+static void saveMatch(Match match) {
 	//sort it based on match.cal.getTimeInMillis(), earliest to latest
 	if(Schedule.isEmpty()) {
 		Schedule.add(match);

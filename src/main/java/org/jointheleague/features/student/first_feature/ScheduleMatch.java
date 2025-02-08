@@ -40,7 +40,7 @@ public class ScheduleMatch extends Feature {
         	//correct person
         	switch (scheduleProgress) {
         	case 0:
-        		match = new Match(bigThinker);
+        		match = new Match();
         		String inp = match.inputDate(messageContent);
         		if(!inp.equals("1")) {
         			event.sendResponse(inp);
@@ -69,6 +69,7 @@ public class ScheduleMatch extends Feature {
         	case 2:
         		match.setTitle(messageContent);
         		//add it to the list/database whatever
+        		MatchThinker.saveMatch(match);
         		scheduleProgress=0;
         		userId=null;
         		event.sendResponse("Match scheduled.");
@@ -81,13 +82,20 @@ public class ScheduleMatch extends Feature {
         	String[] splitMessage = event.getMessageContent().split("; ");
         	//example command: onion schedulematch; date; roster; matchName
         	String[] idSplit = splitMessage[2].split(" ");
-        	if(match.inputDate(splitMessage[1]).equals("1")&&match.setRoster(idSplit).equals("1")) {
-        	event.sendResponse("should work");	
-        	}
-        	match.setTitle(splitMessage[3]);
+        	match=new Match();
         	
-        	event.sendResponse("Match scheduled.");
-    		event.sendResponse(match.getEmbed());
+        	String rost = match.setRoster(idSplit);
+        	String date = match.inputDate(splitMessage[1]);
+        	if(date.equals("1")&&rost.equals("1")) {
+        	
+        		match.setTitle(splitMessage[3]);
+            	MatchThinker.saveMatch(match);
+            	event.sendResponse("Match scheduled.");
+        		event.sendResponse(match.getEmbed());
+        	} else {
+        		event.sendResponse("error: \ndate: "+date+" \nroster: "+rost);
+        	}
+        	
         } else if (event.getMessageContent().substring(0, 20).equals("onion schedulematch;")) {
         	event.sendResponse("Incorrect format. \nWomp womp.");
         }

@@ -33,14 +33,12 @@ String date;
 Calendar cal;
 JDA jda;
 Random ran;
-MatchThinker finger;
 
-    public Match(MatchThinker thinker) {
+    public Match() {
     	jda = JDABuilder.createDefault("MTMzMTQ0NzUzMjc5ODIxNDIwNA.G2"+"vfUr.qJjWqpuFj0qHoiTUb5-V1PAj7GQpnh9UUnR0_U",GatewayIntent.GUILD_MEMBERS)    			
     			.setMemberCachePolicy(MemberCachePolicy.ALL)
     			.build();
     	ran = new Random();
-    	finger = thinker;
     }
     void setTitle(String title) {
     	this.matchTitle=title;
@@ -124,6 +122,6 @@ MatchThinker finger;
     	.build();
     }
     void save() {
-    	finger.saveMatch(this);
+    	MatchThinker.saveMatch(this);
     }
 }
