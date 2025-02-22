@@ -20,6 +20,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.TimeFormat;
@@ -27,18 +28,26 @@ import net.dv8tion.jda.api.utils.Timestamp;
 
 public class Match{
 
+MessageChannelUnion channel;
 String matchTitle;
 User[] roster;
 String date;
 Calendar cal;
 JDA jda;
 Random ran;
+String extra="";
 
-    public Match() {
+    public Match(MessageChannelUnion chan) {
     	jda = JDABuilder.createDefault("MTMzMTQ0NzUzMjc5ODIxNDIwNA.G2"+"vfUr.qJjWqpuFj0qHoiTUb5-V1PAj7GQpnh9UUnR0_U",GatewayIntent.GUILD_MEMBERS)    			
     			.setMemberCachePolicy(MemberCachePolicy.ALL)
     			.build();
     	ran = new Random();
+    	channel=chan;
+    }
+    void alert() {
+    	String message="Get ready for "+matchTitle+"!!! \n"+getRosterNotify();
+    	
+    	channel.sendMessage(message).submit().join();
     }
     void setTitle(String title) {
     	this.matchTitle=title;
@@ -99,26 +108,40 @@ Random ran;
     User[] getRoster() {
     	return roster;
     }
+    void addExtra(String ne) {
+    	extra+="\n"+ne+"\n";
+    }
+    void clearExtra() {
+    	extra="";
+    }
+    String getRosterNotify() {
+    	String s="";
+    	for(User u: roster) {
+    		s+="<@"+u.getId()+">\n";
+    	}
+    	return s;
+    }
     String getPrint() {
     	String statement = "**"+matchTitle+"** \n \n**Date:** "+this.getDate()+" \n \n**Players:** \n";
 		String se = "";
 		for(User u: roster) {
 			se+=(u.getName()+" \n");
 		}
-		statement+=se;
+		statement+=se+extra;
 		return statement;
     }
 
     MessageEmbed getEmbed() {
-    	String statement = "**Date:** "+this.getDate()+" \n \n**Players:** \n";
+    	String statement = "**Date:** "+this.getDate()+" \n \n**Players:** `\n";
 		String se = "";
 		for(User u: roster) {
 			se+=(u.getName()+" \n");
 		}
-		statement+=se;
+		statement+=se+"`"+extra;
     	return new EmbedBuilder().setColor(new Color(ran.nextInt(256),ran.nextInt(256),ran.nextInt(256)))
     	.setTitle(matchTitle)
     	.setDescription(statement)
+    	.setFooter("Type ''left'' or ''right'' to navigate. Then ''quit'' once finished.")   	
     	.build();
     }
     void save() {

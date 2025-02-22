@@ -40,15 +40,15 @@ public class ScheduleMatch extends Feature {
         	//correct person
         	switch (scheduleProgress) {
         	case 0:
-        		match = new Match();
+        		match = new Match(event.getEvent().getChannel());
         		String inp = match.inputDate(messageContent);
         		if(!inp.equals("1")) {
-        			event.sendResponse(inp);
+        			event.sendResponse("Invalid date: "+inp);
         			scheduleInProgress=false;
         			scheduleProgress=0;
         		} else {
         		//date
-        		event.sendResponse("Enter the list of people playing by listing each person's user ID, separated by spaces - IN PROGRESS");
+        		event.sendResponse("Enter the list of people playing by listing each person's user ID, separated by spaces");
         		scheduleProgress++;
         		}
         		break;
@@ -82,7 +82,7 @@ public class ScheduleMatch extends Feature {
         	String[] splitMessage = event.getMessageContent().split("; ");
         	//example command: onion schedulematch; date; roster; matchName
         	String[] idSplit = splitMessage[2].split(" ");
-        	match=new Match();
+        	match=new Match(event.getEvent().getChannel());
         	
         	String rost = match.setRoster(idSplit);
         	String date = match.inputDate(splitMessage[1]);
