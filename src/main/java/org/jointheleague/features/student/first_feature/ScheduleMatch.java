@@ -17,6 +17,7 @@ public class ScheduleMatch extends Feature {
     String userName;
     Match match;
     MatchThinker bigThinker = new MatchThinker();
+    PingChecker checker;
     public ScheduleMatch(String channelName) {
         super(channelName);
 
@@ -26,7 +27,10 @@ public class ScheduleMatch extends Feature {
 
     @Override
     public void handle(ReceivedMessage event) {
-    	
+    	if(checker==null) {
+    		checker=new PingChecker(event.getEvent().getChannel());
+    		checker.start();
+    	}
         String messageContent = event.getMessageContent();
         
         if (messageContent.equalsIgnoreCase(COMMAND)&&!scheduleInProgress) {
