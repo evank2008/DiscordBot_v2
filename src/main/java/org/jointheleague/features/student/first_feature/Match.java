@@ -33,13 +33,11 @@ String matchTitle;
 User[] roster;
 String date;
 Calendar cal;
-Color color;
 JDA jda;
 Random ran;
 String extra="";
 
     public Match(MessageChannelUnion chan) {
-    	color = new Color(ran.nextInt(256),ran.nextInt(256),ran.nextInt(256));
     	jda = JDABuilder.createDefault("MTMzMTQ0NzUzMjc5ODIxNDIwNA.G2"+"vfUr.qJjWqpuFj0qHoiTUb5-V1PAj7GQpnh9UUnR0_U",GatewayIntent.GUILD_MEMBERS)    			
     			.setMemberCachePolicy(MemberCachePolicy.ALL)
     			.build();
@@ -140,19 +138,7 @@ String extra="";
 			se+=(u.getName()+" \n");
 		}
 		statement+=se+"`"+extra;
-    	return new EmbedBuilder().setColor(color)
-    	.setTitle(matchTitle)
-    	.setDescription(statement)
-    	.build();
-    }
-    MessageEmbed getEmbedNavigation() {
-    	String statement = "**Date:** "+this.getDate()+" \n \n**Players:** `\n";
-		String se = "";
-		for(User u: roster) {
-			se+=(u.getName()+" \n");
-		}
-		statement+=se+"`"+extra;
-    	return new EmbedBuilder().setColor(color)
+    	return new EmbedBuilder().setColor(new Color(ran.nextInt(256),ran.nextInt(256),ran.nextInt(256)))
     	.setTitle(matchTitle)
     	.setDescription(statement)
     	.setFooter("Type ''left'' or ''right'' to navigate. Then ''quit'' once finished.")   	
