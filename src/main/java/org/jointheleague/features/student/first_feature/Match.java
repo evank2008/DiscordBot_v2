@@ -133,18 +133,45 @@ Color color;
 		return statement;
     }
 
-    MessageEmbed getEmbed() {
+    MessageEmbed getEmbed(int type) {
+    	//0 for regular, 1 for nav, 2 for ping
     	String statement = "**Date:** "+this.getDate()+" \n \n**Players:** `\n";
 		String se = "";
 		for(User u: roster) {
 			se+=(u.getName()+" \n");
 		}
 		statement+=se+"`"+extra;
-    	return new EmbedBuilder().setColor(color)
-    	.setTitle(matchTitle)
-    	.setDescription(statement)
-    	.setFooter("Type ''left'' or ''right'' to navigate. Then ''quit'' once finished.")   	
-    	.build();
+		MessageEmbed embed=null;
+		switch (type) {
+		case 0:
+			embed = new EmbedBuilder().setColor(color)
+	    	.setTitle(matchTitle)
+	    	.setDescription(statement)
+	    	//.setFooter("Type ''left'' or ''right'' to navigate. Then ''quit'' once finished.")   	
+	    	.build();
+			break;
+		case 1:
+			embed = new EmbedBuilder().setColor(color)
+	    	.setTitle(matchTitle)
+	    	.setDescription(statement)
+	    	.setFooter("Type ''left'' or ''right'' to navigate. Then ''quit'' once finished.")   	
+	    	.build();
+			break;
+		case 2:
+			 statement = "**Date:** "+this.getDate()+" \n \n**Players:** `\n";
+			 se = "";
+			for(User u: roster) {
+				se+=("<@"+u.getName()+"> \n");
+			}
+			statement+=se+"`"+extra;
+			embed = new EmbedBuilder().setColor(color)
+	    	.setTitle(matchTitle)
+	    	.setDescription(statement)
+	    	//.setFooter("Type ''left'' or ''right'' to navigate. Then ''quit'' once finished.")   	
+	    	.build();
+			break;
+		}
+    	return embed;
     }
     void save() {
     	MatchThinker.saveMatch(this);

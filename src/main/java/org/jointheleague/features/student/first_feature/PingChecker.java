@@ -26,7 +26,7 @@ public void run() {
 				//ping em boys
 				String message = "Time for "+ m.getTitle()+"!!! \n"+ m.getRosterNotify();
 				channel.sendMessage(message).submit().join();
-				channel.sendMessageEmbeds(m.getEmbed()).submit().join();
+				channel.sendMessageEmbeds(m.getEmbed(2)).submit().join();
 				//should probably remove the match from schedule?
 				//shoudl there be logs/records?
 				//add that later idk

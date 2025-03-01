@@ -77,7 +77,7 @@ public class ScheduleMatch extends Feature {
         		scheduleProgress=0;
         		userId=null;
         		event.sendResponse("Match scheduled.");
-        		event.sendResponse(match.getEmbed());
+        		event.sendResponse(match.getEmbed(0));
         		break;
         	
         	}
@@ -95,7 +95,7 @@ public class ScheduleMatch extends Feature {
         		match.setTitle(splitMessage[3]);
             	MatchThinker.saveMatch(match);
             	event.sendResponse("Match scheduled.");
-        		event.sendResponse(match.getEmbed());
+        		event.sendResponse(match.getEmbed(0));
         	} else {
         		event.sendResponse("error: \ndate: "+date+" \nroster: "+rost);
         	}

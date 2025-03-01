@@ -38,7 +38,7 @@ public class ViewMatch extends Feature {
         	userId=event.getEvent().getAuthor().getId();
         	matchIndex=0;
         	//show earliest match in list, add some way to go forward or back
-        	event.sendResponse(MatchThinker.Schedule.get(matchIndex).getEmbed());
+        	event.sendResponse(MatchThinker.Schedule.get(matchIndex).getEmbed(1));
         	}
         } else if(event.getEvent().getAuthor().getId().equals(userId)) {
         	if(deleteConfirmation) {
@@ -62,14 +62,14 @@ public class ViewMatch extends Feature {
         			event.sendResponse("No matches past this one.");
         		} else {
         			matchIndex++;
-                	event.sendResponse(MatchThinker.Schedule.get(matchIndex).getEmbed());
+                	event.sendResponse(MatchThinker.Schedule.get(matchIndex).getEmbed(1));
         		}
         	} else if(event.getMessageContent().equalsIgnoreCase("last")||event.getMessageContent().equalsIgnoreCase("left")||event.getMessageContent().equalsIgnoreCase("back")||event.getMessageContent().equalsIgnoreCase("previous")) {
         		if(matchIndex==0) {
         			event.sendResponse("No matches before this one.");
         		} else {
         			matchIndex--;
-                	event.sendResponse(MatchThinker.Schedule.get(matchIndex).getEmbed());
+                	event.sendResponse(MatchThinker.Schedule.get(matchIndex).getEmbed(1));
         		}
         	} else if(event.getMessageContent().equalsIgnoreCase("ping")||event.getMessageContent().equalsIgnoreCase("notify")) {
         		event.sendResponse("Get ready for "+MatchThinker.Schedule.get(matchIndex).matchTitle+"!!! \n"+MatchThinker.Schedule.get(matchIndex).getRosterNotify());
@@ -81,13 +81,13 @@ public class ViewMatch extends Feature {
             	String extra = event.getMessageContent().substring(event.getMessageContent().indexOf(' ')+1);
             	MatchThinker.Schedule.get(matchIndex).addExtra(extra);
             	event.sendResponse("Added line: "+extra);
-            	event.sendResponse(MatchThinker.Schedule.get(matchIndex).getEmbed());
+            	event.sendResponse(MatchThinker.Schedule.get(matchIndex).getEmbed(1));
             	}
         	else if(event.getMessageContent().startsWith("clear")) {
            	 
             	MatchThinker.Schedule.get(matchIndex).clearExtra();
             	event.sendResponse("Cleared extra lines.");
-            	event.sendResponse(MatchThinker.Schedule.get(matchIndex).getEmbed());
+            	event.sendResponse(MatchThinker.Schedule.get(matchIndex).getEmbed(1));
 
             	}
         	else {
