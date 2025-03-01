@@ -36,12 +36,14 @@ Calendar cal;
 JDA jda;
 Random ran;
 String extra="";
+Color color;
 
     public Match(MessageChannelUnion chan) {
     	jda = JDABuilder.createDefault("MTMzMTQ0NzUzMjc5ODIxNDIwNA.G2"+"vfUr.qJjWqpuFj0qHoiTUb5-V1PAj7GQpnh9UUnR0_U",GatewayIntent.GUILD_MEMBERS)    			
     			.setMemberCachePolicy(MemberCachePolicy.ALL)
     			.build();
     	ran = new Random();
+    	color = new Color(ran.nextInt(256),ran.nextInt(256),ran.nextInt(256));
     	channel=chan;
     }
     void alert() {
@@ -138,7 +140,7 @@ String extra="";
 			se+=(u.getName()+" \n");
 		}
 		statement+=se+"`"+extra;
-    	return new EmbedBuilder().setColor(new Color(ran.nextInt(256),ran.nextInt(256),ran.nextInt(256)))
+    	return new EmbedBuilder().setColor(color)
     	.setTitle(matchTitle)
     	.setDescription(statement)
     	.setFooter("Type ''left'' or ''right'' to navigate. Then ''quit'' once finished.")   	
