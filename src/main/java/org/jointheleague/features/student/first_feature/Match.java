@@ -134,7 +134,7 @@ Color color;
     }
 
     MessageEmbed getEmbed(int type) {
-    	//0 for regular, 1 for nav, 2 for ping
+    	//0 for regular, 1 for nav
     	String statement = "**Date:** "+this.getDate()+" \n \n**Players:** `\n";
 		String se = "";
 		for(User u: roster) {
@@ -155,19 +155,6 @@ Color color;
 	    	.setTitle(matchTitle)
 	    	.setDescription(statement)
 	    	.setFooter("Type ''left'' or ''right'' to navigate. Then ''quit'' once finished.")   	
-	    	.build();
-			break;
-		case 2:
-			 statement = "**Date:** "+this.getDate()+" \n \n**Players:** `\n";
-			 se = "";
-			for(User u: roster) {
-				se+=("<@"+u.getName()+"> \n");
-			}
-			statement+=se+"`"+extra;
-			embed = new EmbedBuilder().setColor(color)
-	    	.setTitle(matchTitle)
-	    	.setDescription(statement)
-	    	//.setFooter("Type ''left'' or ''right'' to navigate. Then ''quit'' once finished.")   	
 	    	.build();
 			break;
 		}
