@@ -1,5 +1,7 @@
 package org.jointheleague.features.student.first_feature;
 
+import java.io.IOException;
+
 import org.jointheleague.api_wrapper.ReceivedMessage;
 import org.jointheleague.features.abstract_classes.Feature;
 import org.jointheleague.features.help_embed.plain_old_java_objects.help_embed.HelpEmbed;
@@ -32,7 +34,6 @@ public class ScheduleMatch extends Feature {
     		checker.start();
     	}
         String messageContent = event.getMessageContent();
-        
         if (messageContent.equalsIgnoreCase(COMMAND)&&!scheduleInProgress) {
         	scheduleInProgress=true;
         	scheduleProgress=0;
@@ -78,6 +79,10 @@ public class ScheduleMatch extends Feature {
         		userId=null;
         		event.sendResponse("Match scheduled.");
         		event.sendResponse(match.getEmbed(0));
+        		
+					new Log("scheduled match: "+match.matchTitle,event);
+				
+					
         		break;
         	
         	}
@@ -96,6 +101,7 @@ public class ScheduleMatch extends Feature {
             	MatchThinker.saveMatch(match);
             	event.sendResponse("Match scheduled.");
         		event.sendResponse(match.getEmbed(0));
+        		new Log("scheduled match: "+match.matchTitle,event);
         	} else {
         		event.sendResponse("error: \ndate: "+date+" \nroster: "+rost);
         	}

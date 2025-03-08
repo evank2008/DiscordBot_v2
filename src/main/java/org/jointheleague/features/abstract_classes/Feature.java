@@ -21,7 +21,7 @@ public abstract class Feature extends ListenerAdapter
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getChannel().getName().equals(channelName)) {
             handle(new ReceivedMessage(event));
-        }
+    	}
     }
 
     public HelpEmbed getHelpEmbed() {
