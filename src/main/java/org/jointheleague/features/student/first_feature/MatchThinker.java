@@ -28,6 +28,12 @@ static void saveMatch(Match match) {
 }
 
 void saveScheduleToFile() {
+	System.getProperty("user.dir");
 	//todo: this
+	/* 1: find directory the project is in
+	 * 2: save the schedule to file
+	 * 3: confirmation message maybe
+	 * 
+	 */
 }
 }

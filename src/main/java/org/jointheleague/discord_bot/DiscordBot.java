@@ -53,6 +53,7 @@ public class DiscordBot {
 				.build();
 		api.getTextChannelsByName(channelName, true).forEach(e -> {
 			e.sendMessage(botConnected).submit().join();
+			e.sendMessage(System.getProperty("user.dir")).submit().join();
 		});
 
 		//add help listener to bot

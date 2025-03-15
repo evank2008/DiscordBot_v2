@@ -78,15 +78,12 @@ public class ScheduleMatch extends Feature {
         		scheduleProgress=0;
         		userId=null;
         		event.sendResponse("Match scheduled.");
-        		event.sendResponse(match.getEmbed(0));
-        		
-					new Log("scheduled match: "+match.matchTitle,event);
-				
+        		event.sendResponse(match.getEmbed(0));				
 					
         		break;
         	
         	}
-        }else if(event.getMessageContent().split("; ").length>=4&&event.getMessageContent().substring(0, 20).equals("onion schedulematch;")) {
+        }else if(event.getMessageContent().split("; ").length>=4&&event.getMessageContent().length()>18&&event.getMessageContent().substring(0, 20).equals("onion schedulematch;")) {
         	event.sendResponse("quick shedule detected.");
         	String[] splitMessage = event.getMessageContent().split("; ");
         	//example command: onion schedulematch; date; roster; matchName
@@ -101,12 +98,11 @@ public class ScheduleMatch extends Feature {
             	MatchThinker.saveMatch(match);
             	event.sendResponse("Match scheduled.");
         		event.sendResponse(match.getEmbed(0));
-        		new Log("scheduled match: "+match.matchTitle,event);
         	} else {
         		event.sendResponse("error: \ndate: "+date+" \nroster: "+rost);
         	}
         	
-        } else if (event.getMessageContent().substring(0, 20).equals("onion schedulematch;")) {
+        } else if (event.getMessageContent().length()>18&&event.getMessageContent().substring(0, 20).equals("onion schedulematch;")) {
         	event.sendResponse("Incorrect format. \nWomp womp.");
         }
         
