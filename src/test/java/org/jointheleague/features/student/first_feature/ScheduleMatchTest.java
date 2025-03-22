@@ -70,5 +70,42 @@ void dontRespondToWrongId() {
 
 	
 }
+@Test
+void QuickScheduleCorrectly() {
+	
+
+	when(receivedMessage.getMessageContent()).thenReturn("onion schedulematch; 3/18/2050 5:00; 504080869384912906; grosh");
+	when(receivedMessage.getEvent()).thenReturn(event);
+	when(event.getAuthor()).thenReturn(user);
+	when(user.getName()).thenReturn("onionsondis_cord");
+	when(user.getId()).thenReturn("504080869384912906");
+
+	
+	sm.handle(receivedMessage);
+	
+	verify(receivedMessage, times(1)).sendResponse("Match scheduled.");
+}
+@Test
+void LongScheduleCorrectly() {
+	
+
+	when(receivedMessage.getMessageContent()).thenReturn("onion schedulematch");
+	when(receivedMessage.getEvent()).thenReturn(event);
+	when(event.getAuthor()).thenReturn(user);
+	when(user.getName()).thenReturn("onionsondis_cord");
+	when(user.getId()).thenReturn("504080869384912906");
+
+	
+	sm.handle(receivedMessage);
+	when(receivedMessage.getMessageContent()).thenReturn("3/18/2050 5:00");
+	sm.handle(receivedMessage);
+	when(receivedMessage.getMessageContent()).thenReturn("504080869384912906");
+	sm.handle(receivedMessage);
+	when(receivedMessage.getMessageContent()).thenReturn("grosh");
+	sm.handle(receivedMessage);
+//onion schedulematch; ; 504080869384912906; grosh
+	
+	verify(receivedMessage, times(1)).sendResponse("Match scheduled.");
+}
 
 }

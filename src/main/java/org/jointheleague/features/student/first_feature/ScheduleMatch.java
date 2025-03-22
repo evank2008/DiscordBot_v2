@@ -88,7 +88,7 @@ tc=pcChannel;
         	
         	}
         }else if(event.getMessageContent().split("; ").length>=4&&event.getMessageContent().length()>18&&event.getMessageContent().substring(0, 20).equals("onion schedulematch;")) {
-        	event.sendResponse("quick shedule detected.");
+        	//event.sendResponse("quick shedule detected.");
         	String[] splitMessage = event.getMessageContent().split("; ");
         	//example command: onion schedulematch; date; roster; matchName
         	String[] idSplit = splitMessage[2].split(" ");
