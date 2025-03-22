@@ -13,11 +13,13 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class ScheduleMatchTest {
 	String testChannel = "test";
-ScheduleMatch sm = new ScheduleMatch(testChannel);
+	TextChannel tc;
+ScheduleMatch sm = new ScheduleMatch(testChannel,tc);
 
 @BeforeEach
 void setUp() {

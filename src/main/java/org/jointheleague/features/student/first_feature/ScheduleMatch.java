@@ -9,6 +9,8 @@ import org.jointheleague.features.student.first_feature.Match;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 
 public class ScheduleMatch extends Feature {
 
@@ -20,18 +22,20 @@ public class ScheduleMatch extends Feature {
     Match match;
     MatchThinker bigThinker = new MatchThinker();
     PingChecker checker;
-    public ScheduleMatch(String channelName) {
+    TextChannel tc;
+    public ScheduleMatch(String channelName, TextChannel pcChannel) {
         super(channelName);
-
+tc=pcChannel;
         //Create a help embed to describe feature when !help command is sent
         helpEmbed = new HelpEmbed(COMMAND, "Add a match to the schedule. Input date/time, players, and match title. \n for quick input, use the following sytax: \n onion schedulematch; date time; players; matchTitle");
     }
 
     @Override
     public void handle(ReceivedMessage event) {
-    	if(checker==null) {
-    		checker=new PingChecker(event.getEvent().getChannel());
+    	if(event==null) {
+    		checker=new PingChecker(tc);
     		checker.start();
+    		return;
     	}
         String messageContent = event.getMessageContent();
         if (messageContent.equalsIgnoreCase(COMMAND)&&!scheduleInProgress) {

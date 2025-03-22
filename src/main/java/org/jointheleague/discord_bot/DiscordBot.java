@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 
+import org.jointheleague.QuitButton;
 import org.jointheleague.features.abstract_classes.Feature;
 import org.jointheleague.features.examples.second_features.HighLowGame;
 import org.jointheleague.features.examples.third_features.CatFactsApi;
@@ -52,18 +53,20 @@ public class DiscordBot {
 				.addContent(api.getSelfUser().getName() + " has connected")
 				.build();
 		api.getTextChannelsByName(channelName, true).forEach(e -> {
+			new QuitButton(e);
 			e.sendMessage(botConnected).submit().join();
-			e.sendMessage(System.getProperty("user.dir")).submit().join();
+			
 		});
 
 		//add help listener to bot
 		api.addEventListener(helpListener);
-
-		//add features
 		
+		//add features
+		ScheduleMatch sm = new ScheduleMatch(channelName,api.getTextChannelsByName(channelName, true).get(0));
+		sm.handle(null);
 		//addFeature(new FeatureOne(channelName));	
 		addFeature(new ViewMatch(channelName));	
-		addFeature(new ScheduleMatch(channelName));
+		addFeature(sm);
 		addFeature(new CurrentTime(channelName));
 		addFeature(new Kys(channelName));
 		

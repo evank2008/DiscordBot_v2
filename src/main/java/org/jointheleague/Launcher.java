@@ -10,7 +10,7 @@ public class Launcher {
         String discordToken = System.getenv("DISCORD_TOKEN");
         boolean printDiscordInvite = true;
 
-        new QuitButton();
+        
         
         //Instantiate DiscordBot and connect
         DiscordBot discordBot =  new DiscordBot(discordToken, channelName);

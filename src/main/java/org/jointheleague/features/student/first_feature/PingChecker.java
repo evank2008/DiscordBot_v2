@@ -3,13 +3,14 @@ package org.jointheleague.features.student.first_feature;
 import java.util.Calendar;
 import java.util.Date;
 
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 
 public class PingChecker extends Thread{
-	MessageChannelUnion channel;
+	TextChannel channel;
 	//every [time] check the time/date
 	//iterate through each match, if it's time, ping everyone and delete the match or move it to past matches
-public PingChecker(MessageChannelUnion channel) {
+public PingChecker(TextChannel channel) {
 	this.channel=channel;
 }
 @Override
