@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -22,15 +24,16 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.never;
 
 public class ViewMatchTest {
-	/*
+	
     private final String testChannelName = "test";
-    private final ViewMatch viewMatch = new ViewMatch(testChannelName);
-
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
+    ViewMatch viewMatch = new ViewMatch(testChannelName);
 
     @Mock
     private ReceivedMessage receivedMessage;
+    @Mock
+    private User user;
+    @Mock
+    private MessageReceivedEvent event;
 
     @Mock
     private MessageChannelUnion mcu;
@@ -40,33 +43,39 @@ public class ViewMatchTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @AfterEach
-    public void itShouldNotPrintToSystemOut() {
-        String expected = "";
-        String actual = outContent.toString();
-
-        assertEquals(expected, actual);
-        System.setOut(originalOut);
+    @Test
+    void thisTestShouldPass() {
+    	assertEquals(true,true);
     }
 
     @Test
     void itShouldRespondToCommand() {
         //Given
-
+         when(receivedMessage.getEvent()).thenReturn(event);
+         when(event.getAuthor()).thenReturn(user);
+         when(user.getId()).thenReturn("504080869384912906");
         //When
-        String command = "onion view";
-        when(receivedMessage.getMessageContent()).thenReturn(command);
+        MatchThinker.Schedule.clear();
+        when(receivedMessage.getMessageContent()).thenReturn("onion view");
         //Then
         viewMatch.handle(receivedMessage);
-        verify(receivedMessage, times(1)).sendResponse("No matches scheduled.");
+        verify(receivedMessage).sendResponse("No matches scheduled.");
+       
+        when(receivedMessage.getMessageContent()).thenReturn("quit");
+
+        viewMatch.handle(receivedMessage);
+
     }
     @Test
     void itShouldNotRespondToNoCommand() {
         //Given
 
         //When
-        String command = "onion view";
+        String command = "onion view"; 
         when(receivedMessage.getMessageContent()).thenReturn("ploob");
+        when(receivedMessage.getEvent()).thenReturn(event);
+        when(event.getAuthor()).thenReturn(user);
+        when(user.getId()).thenReturn("504080869384912906");
         //Then
         viewMatch.handle(receivedMessage);
         verify(receivedMessage, times(0)).sendResponse("No matches scheduled.");
@@ -75,13 +84,21 @@ public class ViewMatchTest {
     void itShouldShowMatch() {
         //Given
 Match m = new Match(mcu);
+String[] roster = {"504080869384912906"};
+m.setRoster(roster);
+m.setTitle("ploob");
+m.inputDate("1/1/1970 5:00");
+MatchThinker.saveMatch(m);
 
-        //When
+//When
         String command = "onion view";
         when(receivedMessage.getMessageContent()).thenReturn(command);
+        when(receivedMessage.getEvent()).thenReturn(event);
+        when(event.getAuthor()).thenReturn(user);
+        when(user.getId()).thenReturn("504080869384912906");
         //Then
         viewMatch.handle(receivedMessage);
-        verify(receivedMessage, times(1)).sendResponse("No matches scheduled.");
+        verify(receivedMessage, times(1)).sendResponse(m.getEmbed(1));
     }
-    */
+    
 }
