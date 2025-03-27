@@ -100,5 +100,28 @@ MatchThinker.saveMatch(m);
         viewMatch.handle(receivedMessage);
         verify(receivedMessage, times(1)).sendResponse(m.getEmbed(1));
     }
-    
+    @Test
+    void itShouldAddLine() {
+    	Match m = new Match(mcu);
+    	String[] roster = {"504080869384912906"};
+    	m.setRoster(roster);
+    	m.setTitle("ploob");
+    	m.inputDate("1/1/1970 5:00");
+    	MatchThinker.Schedule.set(0, m);
+    	when(receivedMessage.getMessageContent()).thenReturn("onion view");
+        when(receivedMessage.getEvent()).thenReturn(event);
+        when(event.getAuthor()).thenReturn(user);
+        when(user.getId()).thenReturn("504080869384912906");
+        viewMatch.handle(receivedMessage);
+    	when(receivedMessage.getMessageContent()).thenReturn("add watching morbius afterwards");
+        viewMatch.handle(receivedMessage);
+        m.addExtra("watching morbius afterwards");
+        when(receivedMessage.getMessageContent()).thenReturn("quit");
+        viewMatch.handle(receivedMessage);
+        when(receivedMessage.getMessageContent()).thenReturn("onion view");
+        viewMatch.handle(receivedMessage);
+        verify(receivedMessage, times(1)).sendResponse(m.getEmbed(1));
+        
+
+    }
 }
