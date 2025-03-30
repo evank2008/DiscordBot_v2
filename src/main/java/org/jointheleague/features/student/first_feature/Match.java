@@ -27,14 +27,14 @@ import net.dv8tion.jda.api.utils.TimeFormat;
 import net.dv8tion.jda.api.utils.Timestamp;
 
 public class Match{
-
+//make an array of ids and an array of names?
+String[] idRoster;
+String[] nameRoster;
 MessageChannelUnion channel;
 String matchTitle;
-User[] roster;
 String date;
 Calendar cal;
 JDA jda;
-Random ran;
 String extra="";
 Color color;
 
@@ -42,7 +42,7 @@ Color color;
     	jda = JDABuilder.createDefault("MTMzMTQ0NzUzMjc5ODIxNDIwNA.G2"+"vfUr.qJjWqpuFj0qHoiTUb5-V1PAj7GQpnh9UUnR0_U",GatewayIntent.GUILD_MEMBERS)    			
     			.setMemberCachePolicy(MemberCachePolicy.ALL)
     			.build();
-    	ran = new Random();
+    	Random ran = new Random();
     	color = new Color(ran.nextInt(256),ran.nextInt(256),ran.nextInt(256));
     	channel=chan;
     }
@@ -82,33 +82,37 @@ Color color;
      	//cal.set(2025, 12, 31, 15, 30);
 
      	cal.set(dateInts[2], dateInts[0]-1, dateInts[1], dateInts[3], dateInts[4]);
+     	date=""+cal.getTimeInMillis();
     	return "1";
     	} catch(Exception e) {
     		return e.getMessage();
     	}
     }
     String getDate() {
-    	return "<t:"+cal.getTimeInMillis()/1000+">";
+    	return date;
     }
     String setRoster(String[] roster) {
     	//string is of user ids
-    	
-    	 this.roster = new User[roster.length];
+    	idRoster = roster;
+    	nameRoster = new String[roster.length];
     	for(int i = 0;i<roster.length;i++)  {
     		try {
-    			this.roster[i]=jda.retrieveUserById(roster[i]).submit().get();
-    			
+    			this.nameRoster[i]=jda.retrieveUserById(roster[i]).submit().get().getEffectiveName();
     		//this.roster[i]=jda.getUserById(roster[i]);
     		} catch(Exception e) {
-    			this.roster=null;
+    			nameRoster=null;
+    			idRoster=null;
     			return e.getMessage();
     		}
     	}
     	return "1";
     	
     }
-    User[] getRoster() {
-    	return roster;
+    String[] getNameRoster() {
+    	return nameRoster;
+    }
+    String[] getIdRoster() {
+    	return idRoster;
     }
     void addExtra(String ne) {
     	extra+="\n"+ne+"\n";
@@ -118,16 +122,16 @@ Color color;
     }
     String getRosterNotify() {
     	String s="";
-    	for(User u: roster) {
-    		s+="<@"+u.getId()+">\n";
+    	for(String e: idRoster) {
+    		s+="<@"+e+">\n";
     	}
     	return s;
     }
     String getPrint() {
     	String statement = "**"+matchTitle+"** \n \n**Date:** "+this.getDate()+" \n \n**Players:** \n";
 		String se = "";
-		for(User u: roster) {
-			se+=(u.getName()+" \n");
+		for(String e: nameRoster) {
+			se+=(e+" \n");
 		}
 		statement+=se+extra;
 		return statement;
@@ -137,8 +141,8 @@ Color color;
     	//0 for regular, 1 for nav
     	String statement = "**Date:** "+this.getDate()+" \n \n**Players:** `\n";
 		String se = "";
-		for(User u: roster) {
-			se+=(u.getName()+" \n");
+		for(String e: nameRoster) {
+			se+=(e+" \n");
 		}
 		statement+=se+"`"+extra;
 		MessageEmbed embed=null;
@@ -162,5 +166,61 @@ Color color;
     }
     void save() {
     	MatchThinker.saveMatch(this);
+    }
+    String Serialize() {
+    	String div = "bx91IwnbgQ2enhAQ1sCYHv555UT0Wa";
+    	String div2 = "lhRFSHBfgBy5apiC9AFgZn5Oc0J32b";
+    	/*
+    	 * title
+    	 * date
+    	 * extra
+    	 * color
+    	 * idroster
+    	 * nameroster
+    	 */
+    	
+    	//extra div color div idroster1 dvi2 idroster2 div2 idroster3 div nameroster1 div2 nameroster2 div2 nameroster3 div
+    	String fin = "";
+    	fin+=matchTitle+div;
+    	fin+=date+div;
+    	fin+=extra+div;
+    	fin+=color.getRGB()+div;
+    	
+    	String idr = "";
+    	for(int i = 0; i<idRoster.length;i++) {
+    		idr+=idRoster[i];
+    		idr+=div2;
+    	}
+    	String nmr = "";
+    	for(int i = 0; i<nameRoster.length;i++) {
+    		nmr+=nameRoster[i];
+    		nmr+=div2;
+    	}
+    	
+    	fin+=idr+div;
+    	fin+=nmr;
+    	return fin;
+    }
+    Match Deserialize(String fin) {
+    	String div = "bx91IwnbgQ2enhAQ1sCYHv555UT0Wa";
+    	String div2 = "lhRFSHBfgBy5apiC9AFgZn5Oc0J32b";
+    	/*
+    	 * title
+    	 * date
+    	 * extra
+    	 * color
+    	 * idroster
+    	 * nameroster
+    	 */
+    	String[] datas = fin.split(div);
+    	matchTitle=datas[0];
+    	date=datas[1];
+    	extra=datas[2];
+    	color = new Color(Integer.parseInt(datas[3]));
+    	String[] idr = datas[4].split(div2);
+    	String[] nmr = datas[5].split(div2);
+    	idRoster=idr;
+    	nameRoster=nmr;
+    	return this;
     }
 }
