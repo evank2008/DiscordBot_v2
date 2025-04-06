@@ -32,6 +32,7 @@ public class Kys extends Feature {
         	event.getEvent().getChannel().sendFiles(fu).submit().join();
         		}
             event.sendResponse("killing self...");
+            MatchThinker.saveScheduleToFile();
             System.exit(0);
         	}
         }

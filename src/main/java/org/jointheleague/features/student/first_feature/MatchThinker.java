@@ -10,13 +10,14 @@ import java.util.LinkedList;
 
 import com.google.gson.Gson;
 
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 
 
 public class MatchThinker {
-	File scheduleFile = new File("src/main/java/org/jointheleague/features/student/first_feature/schedule.json");
-	FileWriter fw;
-	FileReader fr;
+	static File scheduleFile = new File("src/main/java/org/jointheleague/features/student/first_feature/schedule.json");
+	static FileWriter fw;
+	static FileReader fr;
 static LinkedList<Match> Schedule = new LinkedList<Match>();
 //todo: save to file
 public MatchThinker() {
@@ -41,7 +42,7 @@ static void saveMatch(Match match) {
 	}
 }
 
-boolean saveScheduleToFile(){
+static boolean saveScheduleToFile(){
 	//System.getProperty("user.dir");
 	//todo: this
 	/* 1: find directory the project is in
@@ -71,7 +72,7 @@ boolean saveScheduleToFile(){
 		return false;
 	}
 	}
-boolean loadFile(MessageChannelUnion mcu) {
+static boolean loadFile(TextChannel mcu) {
 	if(fr==null) {
 		try {
 			fr=new FileReader(scheduleFile);

@@ -49,7 +49,7 @@ tc=pcChannel;
         	//correct person
         	switch (scheduleProgress) {
         	case 0:
-        		match = new Match(event.getEvent().getChannel());
+        		match = new Match(event.getEvent().getChannel().asTextChannel());
         		String inp = match.inputDate(messageContent);
         		if(!inp.equals("1")) {
         			event.sendResponse("Invalid date: "+inp);
@@ -92,7 +92,7 @@ tc=pcChannel;
         	String[] splitMessage = event.getMessageContent().split("; ");
         	//example command: onion schedulematch; date; roster; matchName
         	String[] idSplit = splitMessage[2].split(" ");
-        	match=new Match(event.getEvent().getChannel());
+        	match=new Match(event.getEvent().getChannel().asTextChannel());
         	
         	String rost = match.setRoster(idSplit);
         	String date = match.inputDate(splitMessage[1]);

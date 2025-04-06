@@ -20,6 +20,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
@@ -30,7 +31,8 @@ public class Match{
 //make an array of ids and an array of names?
 String[] idRoster;
 String[] nameRoster;
-MessageChannelUnion channel;
+//MessageChannelUnion channel;
+TextChannel channel;
 String matchTitle;
 String date;
 Calendar cal;
@@ -38,7 +40,7 @@ JDA jda;
 String extra="";
 Color color;
 
-    public Match(MessageChannelUnion chan) {
+    public Match(TextChannel chan) {
     	jda = JDABuilder.createDefault("MTMzMTQ0NzUzMjc5ODIxNDIwNA.G2"+"vfUr.qJjWqpuFj0qHoiTUb5-V1PAj7GQpnh9UUnR0_U",GatewayIntent.GUILD_MEMBERS)    			
     			.setMemberCachePolicy(MemberCachePolicy.ALL)
     			.build();
