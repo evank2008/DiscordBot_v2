@@ -15,6 +15,7 @@ import org.jointheleague.features.examples.first_features.CurrentTime;
 import org.jointheleague.features.examples.first_features.RandomNumber;
 import org.jointheleague.features.help_embed.HelpListener;
 import org.jointheleague.features.student.first_feature.FeatureOne;
+import org.jointheleague.features.student.first_feature.FileManipulator;
 import org.jointheleague.features.student.first_feature.Kys;
 import org.jointheleague.features.student.first_feature.ScheduleMatch;
 import org.jointheleague.features.student.first_feature.ViewMatch;
@@ -66,6 +67,7 @@ public class DiscordBot {
 		sm.handle(null);
 		//addFeature(new FeatureOne(channelName));	
 		addFeature(new ViewMatch(channelName));	
+		addFeature(new FileManipulator(channelName));
 		addFeature(sm);
 		addFeature(new CurrentTime(channelName));
 		addFeature(new Kys(channelName));

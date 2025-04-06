@@ -15,14 +15,21 @@ public PingChecker(TextChannel channel) {
 }
 @Override
 public void run() {
-	
+	channel.sendMessage("loading saved file...").submit().join();
+	if(MatchThinker.loadFile(channel)) {
+		channel.sendMessage("file loaded!").submit().join();
+	} else {
+		channel.sendMessage("file load error").submit().join();
+		MatchThinker.Schedule.clear();
+	}
 	while(true) {
 		long currentTime = new Date(System.currentTimeMillis()).getTime();
 		channel.sendMessage("checking for matches that time is up for...").submit().join();
+		
 
 	//	Calendar cal = new Calendar.Builder().
 		for(Match m: MatchThinker.Schedule) {
-			if(m.cal.getTime().getTime()<currentTime) {
+			if(m.date<currentTime) {
 				//match time is earlier than current time
 				//ping em boys
 				String message = "Time for "+ m.getTitle()+"!!! \n"+ m.getRosterNotify();

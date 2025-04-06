@@ -70,7 +70,7 @@ static boolean saveScheduleToFile(){
 
 	}
 static boolean loadFile(TextChannel mcu) {
-	if(fr==null) {
+
 		try {
 			fr=new FileReader(scheduleFile);
 			BufferedReader br = new BufferedReader(fr);
@@ -93,7 +93,5 @@ static boolean loadFile(TextChannel mcu) {
 			e.printStackTrace();
 			return false;
 		}
-	}
-	return false;
 }
 }

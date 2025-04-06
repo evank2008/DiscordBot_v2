@@ -34,7 +34,7 @@ String[] nameRoster;
 //MessageChannelUnion channel;
 TextChannel channel;
 String matchTitle;
-String date;
+long date;
 Calendar cal;
 JDA jda;
 String extra="";
@@ -59,7 +59,7 @@ Color color;
     String getTitle() {
     	return matchTitle;
     }
-    void setDate(String date) {
+    void setDate(long date) {
     	this.date=date;
     }
     String inputDate(String dateInput) {
@@ -84,7 +84,7 @@ Color color;
      	//cal.set(2025, 12, 31, 15, 30);
 
      	cal.set(dateInts[2], dateInts[0]-1, dateInts[1], dateInts[3], dateInts[4]);
-     	date=""+cal.getTimeInMillis();
+     	date=cal.getTimeInMillis();
     	return "1";
     	} catch(Exception e) {
     		return e.getMessage();
@@ -216,7 +216,8 @@ Color color;
     	 */
     	String[] datas = fin.split(div);
     	matchTitle=datas[0];
-    	date=datas[1];
+    	
+    	date=Long.parseLong(datas[1]);
     	extra=datas[2];
     	color = new Color(Integer.parseInt(datas[3]));
     	String[] idr = datas[4].split(div2);
