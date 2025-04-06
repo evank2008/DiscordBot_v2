@@ -91,7 +91,7 @@ Color color;
     	}
     }
     String getDate() {
-    	return date;
+    	return "<t:"+cal.getTimeInMillis()/1000+">";
     }
     String setRoster(String[] roster) {
     	//string is of user ids
