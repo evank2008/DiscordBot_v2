@@ -32,6 +32,7 @@ public void run() {
 				//shoudl there be logs/records?
 				//add that later idk
 				MatchThinker.Schedule.remove(m);
+				MatchThinker.saveScheduleToFile();
 			}
 			
 		}

@@ -48,6 +48,7 @@ public class ViewMatch extends Feature {
         			deleteConfirmation=false;
         			interactStatus=false;
             		userId=null;
+            		MatchThinker.saveScheduleToFile();
         		} else {
         			deleteConfirmation=false;
         			event.sendResponse("Deletion aborted.");
@@ -82,17 +83,15 @@ public class ViewMatch extends Feature {
             	MatchThinker.Schedule.get(matchIndex).addExtra(extra);
             	event.sendResponse("Added line: "+extra);
             	event.sendResponse(MatchThinker.Schedule.get(matchIndex).getEmbed(1));
+            	MatchThinker.saveScheduleToFile();
             	}
         	else if(event.getMessageContent().startsWith("clear")) {
            	 
             	MatchThinker.Schedule.get(matchIndex).clearExtra();
             	event.sendResponse("Cleared extra lines.");
             	event.sendResponse(MatchThinker.Schedule.get(matchIndex).getEmbed(1));
-
+            	MatchThinker.saveScheduleToFile();
             	}
-        	else if(event.getMessageContent().equalsIgnoreCase("serialize")) {
-        		event.sendResponse(MatchThinker.Schedule.get(matchIndex).Serialize());
-        	}
         	else {
         		ignoreCounter++;
         		if(ignoreCounter==3) {
