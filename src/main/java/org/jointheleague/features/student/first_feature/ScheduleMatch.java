@@ -84,6 +84,8 @@ tc=pcChannel;
         		event.sendResponse("Match scheduled.");
         		event.sendResponse(match.getEmbed(0));				
 					
+        		//TEST
+        		MatchThinker.saveScheduleToFile();
         		break;
         	
         	}
@@ -102,6 +104,7 @@ tc=pcChannel;
             	MatchThinker.saveMatch(match);
             	event.sendResponse("Match scheduled.");
         		event.sendResponse(match.getEmbed(0));
+        		MatchThinker.saveScheduleToFile();
         	} else {
         		event.sendResponse("error: \ndate: "+date+" \nroster: "+rost);
         	}

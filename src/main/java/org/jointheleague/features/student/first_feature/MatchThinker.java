@@ -15,7 +15,7 @@ import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 
 
 public class MatchThinker {
-	static File scheduleFile = new File("src/main/java/org/jointheleague/features/student/first_feature/schedule.json");
+	static File scheduleFile = new File("src/main/java/org/jointheleague/features/student/first_feature/schedule.txt");
 	static FileWriter fw;
 	static FileReader fr;
 static LinkedList<Match> Schedule = new LinkedList<Match>();
@@ -44,33 +44,30 @@ static void saveMatch(Match match) {
 
 static boolean saveScheduleToFile(){
 	//System.getProperty("user.dir");
-	//todo: this
-	/* 1: find directory the project is in
-	 * 2: save the schedule to file
-	 * 3: confirmation message maybe
-	 * 
-	 */
-	if(fw==null) {
+	
 	try {
-		fw = new FileWriter(scheduleFile,true);
+		fw = new FileWriter(scheduleFile,false);
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 		return false;
 	}
-	}
 	try {
-		fw.write("\n");
-		
-		for(int i = 0; i>Schedule.size();i++) {
-			fw.append(Schedule.get(i).Serialize()+"\n");
+		String strong = "";
+		for(int i = 0; i<Schedule.size();i++) {
+			strong+=(Schedule.get(i).Serialize()+"\n");
+			//fw.flush();
 		}
+		fw.append(strong);
+		fw.flush();
+		fw.close();
 		return true;
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 		return false;
 	}
+
 	}
 static boolean loadFile(TextChannel mcu) {
 	if(fr==null) {

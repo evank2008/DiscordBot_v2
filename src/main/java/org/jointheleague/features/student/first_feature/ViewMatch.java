@@ -90,6 +90,9 @@ public class ViewMatch extends Feature {
             	event.sendResponse(MatchThinker.Schedule.get(matchIndex).getEmbed(1));
 
             	}
+        	else if(event.getMessageContent().equalsIgnoreCase("serialize")) {
+        		event.sendResponse(MatchThinker.Schedule.get(matchIndex).Serialize());
+        	}
         	else {
         		ignoreCounter++;
         		if(ignoreCounter==3) {
