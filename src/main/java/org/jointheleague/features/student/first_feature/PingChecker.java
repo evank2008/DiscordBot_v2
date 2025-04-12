@@ -19,6 +19,7 @@ public void run() {
 	if(MatchThinker.loadFile(channel)) {
 		
 		channel.sendMessage("file loaded!").submit().join();
+		channel.sendMessage(MatchThinker.Schedule.toString()).submit().join();
 	} else {
 		channel.sendMessage("file load error").submit().join();
 		MatchThinker.Schedule.clear();

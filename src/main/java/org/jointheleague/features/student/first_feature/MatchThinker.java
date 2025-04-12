@@ -82,7 +82,9 @@ static boolean loadFile(TextChannel mcu) {
 					return true;
 				}
 				else {
-					Schedule.add(new Match(mcu).Deserialize(s));
+					Match m = new Match(mcu).Deserialize(s);
+					Schedule.add(m);
+					mcu.sendMessage("added match "+m.getTitle()).submit().join();
 				}
 			}
 		} catch (FileNotFoundException e) {

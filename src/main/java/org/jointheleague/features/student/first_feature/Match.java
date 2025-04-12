@@ -37,7 +37,7 @@ String matchTitle;
 long date;
 Calendar cal;
 JDA jda;
-String extra="";
+String extra=" ";
 Color color;
 
     public Match(TextChannel chan) {
@@ -170,8 +170,8 @@ Color color;
     	MatchThinker.saveMatch(this);
     }
     String Serialize() {
-    	String div = "bx91IwnbgQ2enhAQ1sCYHv555UT0Wa";
-    	String div2 = "lhRFSHBfgBy5apiC9AFgZn5Oc0J32b";
+    	String div = " aaaa ";
+    	String div2 = " bbbb ";
     	/*
     	 * title
     	 * date
@@ -204,8 +204,8 @@ Color color;
     	return fin;
     }
     Match Deserialize(String fin) {
-    	String div = "bx91IwnbgQ2enhAQ1sCYHv555UT0Wa";
-    	String div2 = "lhRFSHBfgBy5apiC9AFgZn5Oc0J32b";
+    	String div = " aaaa ";
+    	String div2 = " bbbb ";
     	/*
     	 * title
     	 * date
