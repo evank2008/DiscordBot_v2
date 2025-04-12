@@ -16,7 +16,8 @@ public PingChecker(TextChannel channel) {
 @Override
 public void run() {
 	channel.sendMessage("loading saved file...").submit().join();
-	if(MatchThinker.loadFile(channel)) {
+	//if(MatchThinker.loadFile(channel)) {
+		if(false) {
 		channel.sendMessage("file loaded!").submit().join();
 	} else {
 		channel.sendMessage("file load error").submit().join();

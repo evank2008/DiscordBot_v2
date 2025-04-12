@@ -71,6 +71,7 @@ static boolean saveScheduleToFile(){
 	}
 static boolean loadFile(TextChannel mcu) {
 
+	
 		try {
 			fr=new FileReader(scheduleFile);
 			BufferedReader br = new BufferedReader(fr);

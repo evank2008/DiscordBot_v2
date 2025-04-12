@@ -29,15 +29,17 @@ public class FileManipulator extends Feature {
         if(confirm) {
         	confirm = false;
             //respond to message here
-        	if(id.equals(event.getEvent().getAuthor().getId())&&(messageContent.equals("y")||messageContent.equals("yes"))) {
-        		event.sendResponse("Schedule cleared.");
+        	if(id.equals(event.getEvent().getAuthor().getId())) {
+        		if(messageContent.equals("y")||messageContent.equals("yes")) {
+        			event.sendResponse("Schedule cleared.");
         		MatchThinker.Schedule.clear();
         		MatchThinker.saveScheduleToFile();
         		id=null;
-        	} else {
+        		}
+        	else {
         		event.sendResponse("Deletion aborted.");
-
         	}
+        }
         		}
         else if(messageContent.contains(COMMAND)) {
             //respond to message here

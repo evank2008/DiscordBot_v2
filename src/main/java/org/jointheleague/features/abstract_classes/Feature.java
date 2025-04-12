@@ -19,8 +19,8 @@ public abstract class Feature extends ListenerAdapter
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        if (event.getChannel().getName().equals(channelName)) {
-            handle(new ReceivedMessage(event));
+        if (event.getChannel().getName().equals(channelName)&&!event.getAuthor().getId().equals("1331447532798214204")) {
+            handle(new ReceivedMessage(event));													//this is the id of the bot
     	}
     }
 

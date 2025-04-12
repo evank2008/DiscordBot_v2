@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -36,7 +37,7 @@ public class ViewMatchTest {
     private MessageReceivedEvent event;
 
     @Mock
-    private MessageChannelUnion mcu;
+    private TextChannel mcu;
 
     @BeforeEach
     void setUp() {
