@@ -43,7 +43,6 @@ static void saveMatch(Match match) {
 }
 
 static boolean saveScheduleToFile(){
-	//System.getProperty("user.dir");
 	
 	try {
 		fw = new FileWriter(scheduleFile,false);
@@ -75,14 +74,14 @@ static boolean loadFile(TextChannel mcu) {
 		try {
 			fr=new FileReader(scheduleFile);
 			BufferedReader br = new BufferedReader(fr);
-			Schedule = new LinkedList<Match>();
+			Schedule.clear();
 			while(true) {
 				String s = br.readLine();
 				if(s==null) {
 					return true;
 				}
 				else {
-					Match m = new Match(mcu).Deserialize(s);
+					Match m = Match.Deserialize(s,mcu);
 					Schedule.add(m);
 					mcu.sendMessage("added match "+m.getTitle()).submit().join();
 				}

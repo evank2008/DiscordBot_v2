@@ -1,2 +1,4 @@
-smallo aaaa 7639522200000 aaaa   aaaa -9421724 aaaa 504080869384912906 bbbb  aaaa onionsondis_cord bbbb 
+smallo aaaa 7639522200000 aaaa  
+20 kabooms
+ aaaa -9421724 aaaa 504080869384912906 bbbb  aaaa onionsondis_cord bbbb 
 bigge aaaa 8270674200000 aaaa   aaaa -2141195 aaaa 504080869384912906 bbbb  aaaa onionsondis_cord bbbb 

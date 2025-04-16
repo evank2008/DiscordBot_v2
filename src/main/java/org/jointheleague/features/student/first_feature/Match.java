@@ -91,7 +91,7 @@ Color color;
     	}
     }
     String getDate() {
-    	return "<t:"+cal.getTimeInMillis()/1000+">";
+    	return "<t:"+date/1000+">";
     }
     String setRoster(String[] roster) {
     	//string is of user ids
@@ -203,9 +203,10 @@ Color color;
     	fin+=nmr;
     	return fin;
     }
-    Match Deserialize(String fin) {
+    static Match Deserialize(String fin, TextChannel tcn) {
     	String div = " aaaa ";
     	String div2 = " bbbb ";
+    	Match m = new Match(tcn);
     	/*
     	 * title
     	 * date
@@ -215,15 +216,15 @@ Color color;
     	 * nameroster
     	 */
     	String[] datas = fin.split(div);
-    	matchTitle=datas[0];
+    	m.matchTitle=datas[0];
     	
-    	date=Long.parseLong(datas[1]);
-    	extra=datas[2];
-    	color = new Color(Integer.parseInt(datas[3]));
+    	m.date=Long.parseLong(datas[1]);
+    	m.extra=datas[2];
+    	m.color = new Color(Integer.parseInt(datas[3]));
     	String[] idr = datas[4].split(div2);
     	String[] nmr = datas[5].split(div2);
-    	idRoster=idr;
-    	nameRoster=nmr;
-    	return this;
+    	m.idRoster=idr;
+    	m.nameRoster=nmr;
+    	return m;
     }
 }
