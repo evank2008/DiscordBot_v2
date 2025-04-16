@@ -117,7 +117,7 @@ Color color;
     	return idRoster;
     }
     void addExtra(String ne) {
-    	extra+="\n"+ne+"\n";
+    	extra+="linebreak"+ne+"linebreak";
     }
     void clearExtra() {
     	extra="";
@@ -146,7 +146,8 @@ Color color;
 		for(String e: nameRoster) {
 			se+=(e+" \n");
 		}
-		statement+=se+"`"+extra;
+		String tempExtra=extra.replaceAll("linebreak", "\n");
+		statement+=se+"`"+tempExtra;
 		MessageEmbed embed=null;
 		switch (type) {
 		case 0:
