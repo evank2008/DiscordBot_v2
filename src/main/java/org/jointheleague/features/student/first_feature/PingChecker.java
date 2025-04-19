@@ -30,16 +30,18 @@ public void run() {
 		
 
 	//	Calendar cal = new Calendar.Builder().
-		for(Match m: MatchThinker.Schedule) {
-			if(m.date<currentTime) {
+		for(int i = 0; i<MatchThinker.Schedule.size();i++) {
+			if(MatchThinker.Schedule.get(i).date<currentTime) {
 				//match time is earlier than current time
 				//ping em boys
-				String message = "Time for "+ m.getTitle()+"!!! \n"+ m.getRosterNotify();
+				
+				String message = "Time for "+ MatchThinker.Schedule.get(i).getTitle()+"!!! \n"+ MatchThinker.Schedule.get(i).getRosterNotify();
 				channel.sendMessage(message).submit().join();
-				channel.sendMessageEmbeds(m.getEmbed(0)).submit().join();
+				channel.sendMessageEmbeds(MatchThinker.Schedule.get(i).getEmbed(0)).submit().join();
 				//why doesnt it send the embed...
 				//is code stopping here?
-				MatchThinker.Schedule.remove(m);
+				MatchThinker.Schedule.remove(i);
+				i--;
 				MatchThinker.saveScheduleToFile();
 				channel.sendMessage("fine").submit().join();
 			}
