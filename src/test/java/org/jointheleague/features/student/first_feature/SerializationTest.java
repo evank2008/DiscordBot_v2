@@ -57,8 +57,8 @@ public class SerializationTest {
         m.setRoster(st);
         m.setTitle("testTitle");
         
-        Match mTest = m.Deserialize(m.Serialize());
-        assertEquals(m,mTest);
+        Match mTest = Match.Deserialize(m.Serialize(),mcu);
+        assertEquals(m.getEmbed(1),mTest.getEmbed(1));
         }
     
 }

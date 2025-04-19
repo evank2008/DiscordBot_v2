@@ -14,24 +14,31 @@ import org.mockito.MockitoAnnotations;
 
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class ScheduleMatchTest {
 	String testChannel = "test";
-	TextChannel tc;
-ScheduleMatch sm = new ScheduleMatch(testChannel,tc);
+ScheduleMatch sm;
 
-@BeforeEach
-void setUp() {
-    MockitoAnnotations.openMocks(this);
-    sm.checker=new PingChecker(null);
-}
 @Mock
 private ReceivedMessage receivedMessage;
 @Mock
 private User user;
 @Mock
 private MessageReceivedEvent event;
+@Mock
+private MessageChannelUnion mcu;
+@Mock
+TextChannel tc;
+
+@BeforeEach
+void setUp() {
+    MockitoAnnotations.openMocks(this);
+    sm = new ScheduleMatch(testChannel,tc);
+    sm.checker=new PingChecker(null);
+    
+}
 
 @Test
 void RespondWithCorrectPrompt() {
@@ -42,7 +49,8 @@ void RespondWithCorrectPrompt() {
 	when(event.getAuthor()).thenReturn(user);
 	when(user.getName()).thenReturn("onionsondis_cord");
 	when(user.getId()).thenReturn("504080869384912906");
-
+	when(event.getChannel()).thenReturn(mcu);
+	when(mcu.asTextChannel()).thenReturn(tc);
 	
 	sm.handle(receivedMessage);
 	
@@ -73,7 +81,8 @@ void dontRespondToWrongId() {
 @Test
 void QuickScheduleCorrectly() {
 	
-
+	when(event.getChannel()).thenReturn(mcu);
+	when(mcu.asTextChannel()).thenReturn(tc);
 	when(receivedMessage.getMessageContent()).thenReturn("onion schedulematch; 3/18/2050 5:00; 504080869384912906; grosh");
 	when(receivedMessage.getEvent()).thenReturn(event);
 	when(event.getAuthor()).thenReturn(user);
@@ -94,7 +103,8 @@ void LongScheduleCorrectly() {
 	when(event.getAuthor()).thenReturn(user);
 	when(user.getName()).thenReturn("onionsondis_cord");
 	when(user.getId()).thenReturn("504080869384912906");
-
+when(event.getChannel()).thenReturn(mcu);
+when(mcu.asTextChannel()).thenReturn(tc);
 	
 	sm.handle(receivedMessage);
 	when(receivedMessage.getMessageContent()).thenReturn("3/18/2050 5:00");

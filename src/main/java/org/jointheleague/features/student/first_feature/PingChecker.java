@@ -15,18 +15,18 @@ public PingChecker(TextChannel channel) {
 }
 @Override
 public void run() {
-	channel.sendMessage("loading saved file...").submit().join();
+	//channel.sendMessage("loading saved file...").submit().join();
 	if(MatchThinker.loadFile(channel)) {
 		
-		channel.sendMessage("file loaded!").submit().join();
-		channel.sendMessage(MatchThinker.Schedule.toString()).submit().join();
+		//channel.sendMessage("file loaded!").submit().join();
+		//channel.sendMessage(MatchThinker.Schedule.toString()).submit().join();
 	} else {
 		channel.sendMessage("file load error").submit().join();
 		MatchThinker.Schedule.clear();
 	}
 	while(true) {
 		long currentTime = new Date(System.currentTimeMillis()).getTime();
-		channel.sendMessage("checking for matches that time is up for...").submit().join();
+		//channel.sendMessage("checking for matches that time is up for...").submit().join();
 		
 
 	//	Calendar cal = new Calendar.Builder().
@@ -36,12 +36,12 @@ public void run() {
 				//ping em boys
 				String message = "Time for "+ m.getTitle()+"!!! \n"+ m.getRosterNotify();
 				channel.sendMessage(message).submit().join();
-				channel.sendMessageEmbeds(m.getEmbed(2)).submit().join();
-				//should probably remove the match from schedule?
-				//shoudl there be logs/records?
-				//add that later idk
+				channel.sendMessageEmbeds(m.getEmbed(0)).submit().join();
+				//why doesnt it send the embed...
+				//is code stopping here?
 				MatchThinker.Schedule.remove(m);
 				MatchThinker.saveScheduleToFile();
+				channel.sendMessage("fine").submit().join();
 			}
 			
 		}

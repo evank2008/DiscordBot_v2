@@ -83,7 +83,7 @@ static boolean loadFile(TextChannel mcu) {
 				else {
 					Match m = Match.Deserialize(s,mcu);
 					Schedule.add(m);
-					mcu.sendMessage("added match "+m.getTitle()).submit().join();
+					//mcu.sendMessage("added match "+m.getTitle()).submit().join();
 				}
 			}
 		} catch (FileNotFoundException e) {

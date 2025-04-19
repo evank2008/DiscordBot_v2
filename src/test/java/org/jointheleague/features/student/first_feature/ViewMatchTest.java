@@ -108,7 +108,7 @@ MatchThinker.saveMatch(m);
     	m.setRoster(roster);
     	m.setTitle("ploob");
     	m.inputDate("1/1/1970 5:00");
-    	MatchThinker.Schedule.set(0, m);
+    	MatchThinker.Schedule.addFirst(m);
     	when(receivedMessage.getMessageContent()).thenReturn("onion view");
         when(receivedMessage.getEvent()).thenReturn(event);
         when(event.getAuthor()).thenReturn(user);

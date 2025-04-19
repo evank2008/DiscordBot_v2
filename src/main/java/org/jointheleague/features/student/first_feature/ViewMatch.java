@@ -28,26 +28,20 @@ public class ViewMatch extends Feature {
 
     @Override
     public void handle(ReceivedMessage event) {
-    	System.out.println("sup.. viewing");
         String messageContent = event.getMessageContent().toLowerCase();
         
         if (messageContent.contains(COMMAND)&&!interactStatus) {
-        	System.out.println("sup.. viewing2");
         	if(MatchThinker.Schedule.isEmpty()) {
         		event.sendResponse("No matches scheduled.");
         	} else {
-        		System.out.println("sup.. viewing3");
             //respond to message here
         	interactStatus=true;
         	userId=event.getEvent().getAuthor().getId();
         	matchIndex=0;
         	//show earliest match in list, add some way to go forward or back
-        	System.out.println("sup.. viewing4");
         	Match mat = MatchThinker.Schedule.get(matchIndex);
-        	System.out.println("sup.. viewing5");
         	System.out.println(mat.Serialize());
         	MessageEmbed mem = mat.getEmbed(1);
-    		System.out.println("sup.. viewing6");
 
         	event.sendResponse(mem);
         	}
