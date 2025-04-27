@@ -35,7 +35,6 @@ String[] nameRoster;
 TextChannel channel;
 String matchTitle;
 long date;
-Calendar cal;
 JDA jda;
 String extra=" ";
 Color color;
@@ -78,7 +77,7 @@ Color color;
     		dateInts[i]=Integer.parseInt(splitDate[i]);
     	}
     	//set the date to whatev
-    	 cal = new Calendar.Builder()
+    	Calendar cal = new Calendar.Builder()
     			 .setTimeZone(TimeZone.getTimeZone("EST"))
     			 .build();
      	//cal.set(2025, 12, 31, 15, 30);

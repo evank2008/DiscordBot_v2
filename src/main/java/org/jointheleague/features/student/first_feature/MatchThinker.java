@@ -31,7 +31,7 @@ static void saveMatch(Match match) {
 		boolean added = false;
 		for(int i = 0; i<Schedule.size()&&!added;i++) {
 			//assume schedule is already sorted
-			if(Schedule.get(i).cal.getTimeInMillis()>match.cal.getTimeInMillis()) {
+			if(Schedule.get(i).date>match.date) {
 				Schedule.add(i, match);
 				added=true;
 			}
