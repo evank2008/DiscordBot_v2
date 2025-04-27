@@ -43,7 +43,7 @@ public void run() {
 				MatchThinker.Schedule.remove(i);
 				i--;
 				MatchThinker.saveScheduleToFile();
-				channel.sendMessage("fine").submit().join();
+				//channel.sendMessage("fine").submit().join();
 			}
 			
 		}
